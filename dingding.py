@@ -7,7 +7,7 @@ import requests
 import json
 
 config = ConfigParser.ConfigParser()
-config.read("config.ini")
+config.read("/usr/lib/zabbix/alertscripts/config.ini")
 log_path = config.get("global", "log_path")
 
 logger = logging.getLogger()
@@ -41,7 +41,7 @@ class DingdingAlerter():
 
     def alert(self):
         headers = {'content-type': 'application/json'}
-        payload = self.getOAMsg()
+        payload = self.getTextMsg()
         try:
             response = requests.post(self.webhook_url, json.dumps(payload, cls=DateTimeEncoder), headers=headers)
             response.raise_for_status()
